@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  backend:
+    image: 21121993namrouche993/backend_datastrict:v2
+    container_name: backend_datastrict
+    
+  nginx_and_frontend:
+    image: 21121993namrouche993/main_domain_datastrict:v17
+    container_name: nginx_frontend_proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - backend
